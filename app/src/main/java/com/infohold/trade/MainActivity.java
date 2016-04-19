@@ -196,34 +196,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onRefreshBegin(PtrFrameLayout frame) {
                 currentItemIndex = 0;
                 requestDataQuery(currentItemIndex, pageSize,"",0);
-
-                //实现下拉刷新的功能
-//                ptrFrameLayout.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        data.clear();
-//                        start = 0;
-//
-////                        data.addAll(getMockData(start, count));
-//                        ptrFrameLayout.refreshComplete();
-//                        //第一个参数是：数据是否为空；第二个参数是：是否还有更多数据
-//                        loadMoreListViewContainer.loadMoreFinish(false, true);
-//                        bulletinAdapter.notifyDataSetChanged();
-//                    }
-//                }, 500);
             }
         });
 
 
         requestDataQuery(currentItemIndex, pageSize,"",0);
-        //设置延时自动刷新数据
-//        ptrFrameLayout.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                ptrFrameLayout.autoRefresh(false);
-//            }
-//        }, 200);
-
 
         loadMoreListViewContainer.setAutoLoadMore(true);
         loadMoreListViewContainer.useDefaultFooter();
@@ -233,25 +210,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 currentItemIndex += pageSize;
                 requestDataMoreQuery(currentItemIndex,pageSize,"");
-
-
-//                //模拟加载更多的业务处理
-//                loadMoreListViewContainer.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        start++;
-////                        mockStrList.addAll(getMockData(start * 10, count));
-//                        if (start * 10 > 30) {
-//                            //以下是加载失败的情节
-//                            int errorCode = 0;
-//                            String errorMessage = "加载失败，点击加载更多";
-//                            loadMoreListViewContainer.loadMoreError(errorCode, errorMessage);
-//                        } else {
-//                            loadMoreListViewContainer.loadMoreFinish(false, true);
-//                        }
-//                        bulletinAdapter.notifyDataSetChanged();
-//                    }
-//                }, 1000);
             }
         });
 
