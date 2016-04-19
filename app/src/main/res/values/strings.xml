@@ -1,0 +1,61 @@
+<resources>
+
+    <!-- 通用-->
+    <string name="app_name">工委会员管理系统</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_login">登录</string>
+    <string name="ok">确认</string>
+    <string name="cancel">取消</string>
+    <string name="error">错误</string>
+    <string name="lost_connection">与服务器失去连接</string>
+
+    <string name="open_camera_permission_title">需要打开摄像头权限</string>
+    <string name="open_camera_permission_message">扫描二维码需要打开应用程序的摄像头的权限？</string>
+    <string name="open_camera_permission_cancel">取消</string>
+    <string name="open_camera_permission_ok">去设置</string>
+
+    <!--页面-->
+    <string name="menu_search">搜索</string>
+    <!-- 退到主页面，快速按2次返回退出-->
+    <string name="close_our_app_promote">再按一次返回键退出</string>
+
+    <!-- 菜单-->
+    <string name="action_change_password">修改登录密码</string>
+    <string name="action_about_us">关于</string>
+    <string name="action_bulletin_detail">活动详情</string>
+    <string name="action_bulletin">活动</string>
+    <string name="action_search_bulletin">活动搜索</string>
+
+    <!-- 功能-->
+    <string name="function_main">主页</string>
+    <string name="function_bulletin">活动</string>
+    <string name="function_scan">扫描</string>
+    <string name="function_logout">退出</string>
+
+    <!-- 登录页面 -->
+    <string name="login_page_promote_user_name">用户名</string>
+    <string name="login_page_promote_password">密码</string>
+    <string name="login_page_sign_in">登录</string>
+
+    <string name="login_page_user_name_empty">用户名不能为空</string>
+    <string name="login_page_user_name_invalid">用户名规则不合法</string>
+    <string name="login_page_password_empty">密码不能为空</string>
+    <string name="login_page_password_invalid">密码规则不合法</string>
+
+    <!--主页面-->
+    <string name="logout_title">提示</string>
+    <string name="logout_message">确定要退出？</string>
+    <string name="logout_cancel">取消</string>
+    <string name="logout_ok">确定</string>
+
+    <!-- 修改密码页面-->
+    <string name="passwd_page_user_name">用户名：</string>
+    <string name="passwd_page_user_old_passwd">旧密码:</string>
+    <string name="passwd_page_user_new_passwd">新密码:</string>
+    <string name="passwd_page_user_new_passwd_confirm">确认密码:</string>
+    <string name="passwd_page_button">修改密码</string>
+
+    <!-- 扫描二维码解析结果验证页面-->
+    <string name="person_barcode_page_title">会员详情</string>
+</resources>

@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "com.infohold"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile('in.srain.cube:cube-sdk:1.0.44.33-SNAPSHOT@aar') {
+        exclude group: 'in.srain.cube', module: 'clog'
+    }
+    //    compile 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+    //    compile 'com.journeyapps:zxing-android-integration:2.0.1@aar'
+    //    compile 'com.google.zxing:core:3.2.0'
+//    compile 'com.github.briandilley.jsonrpc4j:jsonrpc4j:1.4.3'
+//    compile 'io.realm:realm-android:0.84.1'
+    compile project(':libzxing')
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:design:23.3.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.squareup.retrofit2:retrofit:2.0.0'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'in.srain.cube:ultra-ptr:1.0.11'
+    compile 'com.github.alibaba:fastjson:1.1.47-android'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.github.lzyzsd:JsBridge:1.0.4'
+    compile 'com.wang.avi:library:1.0.5'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.android.support:support-v4:23.3.0'
+    compile 'cn.pedant.sweetalert:library:1.3'
+}
