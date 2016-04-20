@@ -5,11 +5,13 @@
 
 package com.infohold.trade;
 
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -568,14 +570,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         sweetAlertDialog.dismiss();
-                        startActivity(new Intent(Settings.ACTION_APPLICATION_SETTINGS));
+
+                        Intent openIntent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
+                        String pkg = "com.android.settings";
+                        String cls = "com.android.settings.applications.InstalledAppDetails";
+
+                        openIntent.setComponent(new ComponentName(pkg, cls));
+                        openIntent.setData(Uri.parse("package:" + getPackageName()));
+                        startActivity(openIntent);
+
                     }
                 })
                 .setCancelText(getString(R.string.open_camera_permission_cancel))
                 .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-
+                        sweetAlertDialog.dismiss();
                     }
                 }).show();
     }
@@ -591,6 +601,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.CAMERA},Constant.REQUEST_CODE_ASK_PERMISSIONS_FROM_MAIN);
+            }else if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
+                startActivityForResult(intent, 0);
             }
 
         }

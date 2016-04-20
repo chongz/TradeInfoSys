@@ -11,7 +11,7 @@
     <string name="lost_connection">与服务器失去连接</string>
 
     <string name="open_camera_permission_title">需要打开摄像头权限</string>
-    <string name="open_camera_permission_message">扫描二维码需要打开应用程序的摄像头的权限？</string>
+    <string name="open_camera_permission_message">扫描二维码需要打开应用程序的摄像头的权限：权限管理->相机</string>
     <string name="open_camera_permission_cancel">取消</string>
     <string name="open_camera_permission_ok">去设置</string>
 
