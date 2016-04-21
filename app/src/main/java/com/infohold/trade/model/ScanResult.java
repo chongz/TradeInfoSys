@@ -8,16 +8,45 @@ package com.infohold.trade.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.infohold.trade.config.Constant;
+
 public class ScanResult implements Parcelable{
-    private String id;
+
+    private String scanResultStr;
     private String bulletinId;
+    private String memberId;
 
     public ScanResult() {
+
+    }
+
+    void parse() {
+        if (this.scanResultStr != null && this.scanResultStr.startsWith(Constant.SCAN_BAR_CODE_PREFIX)) {
+            memberId = this.scanResultStr.substring(Constant.SCAN_BAR_CODE_PREFIX.length(), this.scanResultStr.length());
+        }
+    }
+
+    public ScanResult(String scanResultStr) {
+        this.scanResultStr = scanResultStr;
+        parse();
     }
 
     protected ScanResult(Parcel in) {
-        id = in.readString();
+        scanResultStr = in.readString();
         bulletinId = in.readString();
+        memberId = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(scanResultStr);
+        dest.writeString(bulletinId);
+        dest.writeString(memberId);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<ScanResult> CREATOR = new Creator<ScanResult>() {
@@ -32,12 +61,12 @@ public class ScanResult implements Parcelable{
         }
     };
 
-    public String getId() {
-        return id;
+    public String getScanResultStr() {
+        return scanResultStr;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setScanResultStr(String scanResultStr) {
+        this.scanResultStr = scanResultStr;
     }
 
     public String getBulletinId() {
@@ -48,14 +77,11 @@ public class ScanResult implements Parcelable{
         this.bulletinId = bulletinId;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getMemberId() {
+        return memberId;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(bulletinId);
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
     }
 }

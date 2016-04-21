@@ -58,4 +58,5 @@
 
     <!-- 扫描二维码解析结果验证页面-->
     <string name="person_barcode_page_title">会员详情</string>
+    <string name="person_barcode_invalid_scan_info">不是有效的个人信息</string>
 </resources>

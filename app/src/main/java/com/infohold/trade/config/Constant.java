@@ -73,6 +73,11 @@ public class Constant {
      */
     public static final String HAS_CONTENT = "has";
     public static final String HAS_EMPTY_CONTENT = "";
+
+    /**
+     * 扫描二维码前缀
+     */
+    public static final String SCAN_BAR_CODE_PREFIX = "memberCard=";
 }
 
 

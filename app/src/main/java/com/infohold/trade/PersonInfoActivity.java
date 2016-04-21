@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -124,7 +125,13 @@ public class PersonInfoActivity extends BaseActivity {
         Bundle bundle = getIntent().getExtras();
         this.scanResult = bundle.getParcelable(Constant.PutExtraDataStr);
 
-        searchPersonInfo(this.scanResult.getId());
+
+        if (TextUtils.isEmpty(this.scanResult.getMemberId())) {
+            handler.sendEmptyMessage(12);
+            Toast.makeText(PersonInfoActivity.this,getString(R.string.person_barcode_invalid_scan_info),Toast.LENGTH_SHORT).show();
+        }else {
+            searchPersonInfo(this.scanResult.getMemberId());
+        }
 
         toolbar.setTitle(getString(R.string.person_barcode_page_title));
         setSupportActionBar(toolbar);
@@ -144,7 +151,7 @@ public class PersonInfoActivity extends BaseActivity {
 
         OkHttpClient okHttpClient = new OkHttpClient();
         RequestBody requestBody  = new FormBody.Builder()
-                .add("userId",scanResult.getId())
+                .add("userId",scanResult.getMemberId())
                 .add("bulletId",scanResult.getBulletinId())
                 .add("channelId","android")
                 .add("sellerId",this.userInfo.getStoreId()).build();

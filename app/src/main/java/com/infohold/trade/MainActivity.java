@@ -446,8 +446,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent = new Intent(MainActivity.this, PersonInfoActivity.class);
 
                 Bulletin bulletin = ResourceManager.getInstance().getSelectedBulletin();
-                ScanResult scanResult = new ScanResult();
-                scanResult.setId(result);
+                ScanResult scanResult = new ScanResult(result);
                 if (bulletin!=null) {
                     scanResult.setBulletinId(bulletin.getActivityId());
                 }
@@ -461,8 +460,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent = new Intent(MainActivity.this, PersonInfoActivity.class);
 
                 Bulletin bulletin = ResourceManager.getInstance().getSelectedBulletin();
-                ScanResult scanResult = new ScanResult();
-                scanResult.setId(result);
+                ScanResult scanResult = new ScanResult(result);
                 if (bulletin!=null) {
                     scanResult.setBulletinId(bulletin.getActivityId());
                 }
@@ -606,10 +604,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivityForResult(intent, 0);
             }
 
-        }
-
-        if (id == R.id.nav_logout) {
-
+        }else if (id == R.id.nav_logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setIcon(R.drawable.icon);
             builder.setTitle(getString(R.string.logout_title));
