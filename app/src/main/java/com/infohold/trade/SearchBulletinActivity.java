@@ -61,7 +61,6 @@ public class SearchBulletinActivity extends BaseActivity implements SearchView.O
 
     //请求获取数据条数
     private int currentItemIndex = 0;
-    private int pageSize = 1;
 
     private SweetAlertDialog pDialogLoading;
 
@@ -169,6 +168,8 @@ public class SearchBulletinActivity extends BaseActivity implements SearchView.O
 
         searchView.setOnQueryTextListener(this);
         searchView.setSubmitButtonEnabled(false);
+        searchView.setIconifiedByDefault(false);
+        searchView.setQueryHint("查找活动");
 
         ptrFrameLayout = (PtrFrameLayout) findViewById(R.id.load_more_list_view_ptr_frame);
         ptrFrameLayout.setPtrHandler(new PtrHandler() {
@@ -180,7 +181,7 @@ public class SearchBulletinActivity extends BaseActivity implements SearchView.O
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 currentItemIndex = 0;
-                requestDataQuery(currentItemIndex, pageSize,SearchBulletinActivity.this.queryStr,0);
+                requestDataQuery(currentItemIndex, Constant.PageSize,SearchBulletinActivity.this.queryStr,0);
             }
         });
 
@@ -191,8 +192,8 @@ public class SearchBulletinActivity extends BaseActivity implements SearchView.O
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
 
-                currentItemIndex += pageSize;
-                requestDataMoreQuery(currentItemIndex,pageSize,SearchBulletinActivity.this.queryStr);
+                currentItemIndex += Constant.PageSize;
+                requestDataMoreQuery(currentItemIndex,Constant.PageSize,SearchBulletinActivity.this.queryStr);
             }
         });
     }
@@ -475,15 +476,13 @@ public class SearchBulletinActivity extends BaseActivity implements SearchView.O
         }
 
         this.queryStr = query;
-        requestDataQuery(currentItemIndex,pageSize,query,0);
+        requestDataQuery(currentItemIndex,Constant.PageSize,query,0);
         return true;
 
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-//        this.queryStr = newText;
-//        requestDataQuery(currentItemIndex,pageSize,newText,0);
         return true;
     }
 }

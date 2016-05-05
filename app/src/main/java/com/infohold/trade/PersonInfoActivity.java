@@ -14,11 +14,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.bumptech.glide.Glide;
 import com.infohold.trade.config.Constant;
 import com.infohold.trade.model.Member;
 import com.infohold.trade.model.PersonInfoData;
@@ -48,6 +50,7 @@ public class PersonInfoActivity extends BaseActivity {
 
     private static final String TAG = PersonInfoActivity.class.getName();
 
+    private String picUrl;
     private SweetAlertDialog pDialogLoading;
     List<PersonInfoData> infoDatas = new ArrayList<>();
     private Handler handler = new Handler() {
@@ -71,6 +74,8 @@ public class PersonInfoActivity extends BaseActivity {
                     Toast.makeText(PersonInfoActivity.this,ret,Toast.LENGTH_SHORT).show();
                     break;
                 case 10:
+                    Glide.with(PersonInfoActivity.this).load(Constant.ServicePicAddress + picUrl).placeholder(R.drawable.portrait_view).into(portraitView);
+
                     personInfoAdapter = new PersonInfoAdapter(PersonInfoActivity.this, R.layout.activity_person_info_list_view_item, infoDatas);
                     listView.setAdapter(personInfoAdapter);
                     break;
@@ -90,6 +95,9 @@ public class PersonInfoActivity extends BaseActivity {
     @Bind(R.id.toolbar_common)
     Toolbar toolbar;
 
+    @Bind(R.id.person_info_pic)
+    ImageView portraitView;
+
     @Bind(R.id.person_info_list_view)
     ListView listView;
 
@@ -102,6 +110,7 @@ public class PersonInfoActivity extends BaseActivity {
     private ScanResult scanResult;
     private UserInfo userInfo;
     private PersonInfoAdapter personInfoAdapter;
+    private boolean isAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,11 +121,13 @@ public class PersonInfoActivity extends BaseActivity {
         this.userInfo = ResourceManager.getInstance().getLoginUser(PersonInfoActivity.this);
         if (userInfo != null && userInfo.getMemberGrade() != null) {
             String grade = userInfo.getMemberGrade();
-            if ("1".equals(grade)) {
+            if (Constant.ADMIN.equals(grade)) {
+                isAdmin = true;
                 //admin用户不能下订单
                 okBtn.setVisibility(View.INVISIBLE);
                 cancelBtn.setVisibility(View.INVISIBLE);
             }else{
+                isAdmin = false;
                 okBtn.setVisibility(View.VISIBLE);
                 cancelBtn.setVisibility(View.VISIBLE);
             }
@@ -183,6 +194,8 @@ public class PersonInfoActivity extends BaseActivity {
                     message.what = 2;
                     message.obj = repMSG;
                     handler.sendMessage(message);
+
+                    PersonInfoActivity.this.finish();
                 }else{
                     handler.sendEmptyMessage(1);
                     Message message = new Message();
@@ -234,11 +247,25 @@ public class PersonInfoActivity extends BaseActivity {
                         Member member = JSON.parseObject(JSON.toJSONString(repData), Member.class);
 
                         infoDatas.clear();
-                        infoDatas.add(new PersonInfoData("", member.getUserPic()));
-                        infoDatas.add(new PersonInfoData("用户Id", member.getUserId()));
-                        infoDatas.add(new PersonInfoData("用户名", member.getUserName()));
-                        infoDatas.add(new PersonInfoData("所属基层工会", member.getOrgname()));
-                        infoDatas.add(new PersonInfoData("身份证号码", member.getCard()));
+
+                        picUrl = member.getUserPic();
+                        if (isAdmin) {
+                            //admin用户查看全部个人信息
+//                            infoDatas.add(new PersonInfoData("", member.getUserPic()));
+
+                            infoDatas.add(new PersonInfoData("用户Id", member.getUserId()));
+                            infoDatas.add(new PersonInfoData("用户名", member.getUserName()));
+                            infoDatas.add(new PersonInfoData("所属基层工会", member.getOrgname()));
+                            infoDatas.add(new PersonInfoData("身份证号码", member.getCard()));
+                            infoDatas.add(new PersonInfoData("联系电话", member.getPhone()));
+                            infoDatas.add(new PersonInfoData("性别", member.getSexDisplay()));
+                        }else{
+//                            infoDatas.add(new PersonInfoData("", member.getUserPic()));
+                            infoDatas.add(new PersonInfoData("用户名", member.getUserName()));
+                        }
+
+
+
 
                         handler.sendEmptyMessage(1);
                         Message message = new Message();

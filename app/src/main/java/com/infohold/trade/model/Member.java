@@ -14,6 +14,8 @@ public class Member implements Parcelable {
     private String userPic;
     private String orgname;
     private String card;
+    private String phone;
+    private String sex;
 
     //默认构造方法，否则fastJson解析错误
     public Member() {
@@ -25,6 +27,8 @@ public class Member implements Parcelable {
         userPic = in.readString();
         orgname = in.readString();
         card = in.readString();
+        phone = in.readString();
+        sex = in.readString();
     }
 
     public static final Creator<Member> CREATOR = new Creator<Member>() {
@@ -51,6 +55,8 @@ public class Member implements Parcelable {
         dest.writeString(userPic);
         dest.writeString(orgname);
         dest.writeString(card);
+        dest.writeString(phone);
+        dest.writeString(sex);
     }
 
     public String getUserId() {
@@ -91,5 +97,30 @@ public class Member implements Parcelable {
 
     public void setCard(String card) {
         this.card = card;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getSexDisplay() {
+        if ("0".equals(this.sex)) {
+            return "女";
+        }else if ("1".equals(this.sex)) {
+            return "男";
+        }
+        return "";
     }
 }

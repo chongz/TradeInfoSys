@@ -7,7 +7,6 @@ package com.infohold.trade.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 

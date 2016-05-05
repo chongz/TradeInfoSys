@@ -3,7 +3,7 @@
   ~ Copyright (c) 2016 com.infohold.TradeInfoSys. All rights reserved.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -12,59 +12,98 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/bar"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <include layout="@layout/tool_bar_common" />
     </android.support.design.widget.AppBarLayout>
 
-
-    <TextView
-        android:id="@+id/passwd_page_user_name_text_view"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:gravity="center"
-        android:text="系统用户"
-        android:textSize="20dp" />
+        android:layout_below="@id/bar"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true">
+
+        <TextView
+            android:id="@+id/password_page_user_name_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:gravity="center"
+            android:text="系统用户"
+            android:textSize="20dp"
+            android:textColor="@color/colorBlack" />
+
+        <com.infohold.trade.view.InputEditText
+            android:id="@+id/myEdit"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/change_password_edit_height"
+            android:paddingLeft="20dp"
+            style="?android:attr/textViewStyle"
+            android:background="@null"
+            android:textColor="@null"
+            android:hint="@string/passwd_page_user_new_passwd"
+            android:password="true"
+            android:textSize="20sp"/>
+
+        <com.infohold.trade.view.InputEditText
+            android:id="@+id/password_page_user_old_password_edit_text"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/change_password_edit_height"
+            android:paddingLeft="20dp"
+            style="?android:attr/textViewStyle"
+            android:background="@null"
+            android:textColor="@null"
+            android:password="true"
+            android:hint="@string/passwd_page_user_old_passwd"
+            android:textSize="20sp"
+            />
+
+        <com.infohold.trade.view.InputEditText
+            android:id="@+id/password_page_user_new_password_edit_text"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/change_password_edit_height"
+            android:paddingLeft="20dp"
+            style="?android:attr/textViewStyle"
+            android:background="@null"
+            android:textColor="@null"
+            android:hint="@string/passwd_page_user_new_passwd"
+            android:password="true"
+            android:textSize="20sp" />
 
 
-    <EditText
-        android:id="@+id/passwd_page_user_old_passwd_edit_text"
+        <com.infohold.trade.view.InputEditText
+            android:id="@+id/password_page_user_new_password_confirm_edit_view"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/change_password_edit_height"
+            android:paddingLeft="20dp"
+            style="?android:attr/textViewStyle"
+            android:background="@null"
+            android:textColor="@null"
+            android:inputType="textPassword"
+            android:hint="@string/passwd_page_user_new_passwd_confirm"
+            android:password="true"
+            android:textSize="20sp" />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:password="true"
-        android:hint="@string/passwd_page_user_old_passwd"
-        android:textSize="20dp" />
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/passwd_page_user_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:layout_gravity="center"
+            android:text="@string/passwd_page_button"
+            android:textSize="20sp"
+            android:focusableInTouchMode="true"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+</RelativeLayout>
 
-    <EditText
-        android:id="@+id/passwd_page_user_new_passwd_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/passwd_page_user_new_passwd"
-        android:paddingLeft="20dp"
-        android:password="true"
-        android:textSize="20dp" />
-
-
-    <EditText
-        android:id="@+id/passwd_page_user_new_passwd_confirm_edit_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:hint="@string/passwd_page_user_new_passwd_confirm"
-        android:paddingLeft="20dp"
-        android:password="true"
-        android:textSize="20dp" />
-
-
-    <Button
-        android:id="@+id/passwd_page_user_button"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/passwd_page_button"
-        android:textSize="20dp" />
-
-
-</LinearLayout>

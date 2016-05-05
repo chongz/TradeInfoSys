@@ -103,9 +103,8 @@ public class LoginActivity extends BaseActivity {
     void login() {
         if (attemptLogin()) {
 
-//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//            finish();
-
+//            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+//            startActivity(intent);
                 String userName = userNameEditText.getText().toString();
                 String password = passwordTextEdit.getText().toString();
 

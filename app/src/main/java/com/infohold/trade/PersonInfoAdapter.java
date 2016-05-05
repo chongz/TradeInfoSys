@@ -10,11 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.infohold.trade.config.Constant;
 import com.infohold.trade.model.PersonInfoData;
 
 import java.util.List;
@@ -35,13 +32,13 @@ public class PersonInfoAdapter extends ArrayAdapter<PersonInfoData> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View view;
-        if (position == 0) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.activity_person_info_top, null);
-            PersonInfoData infoData = getItem(position);
-            ImageView portraitView = (ImageView) view.findViewById(R.id.person_info_image_view);
-            Glide.with(getContext()).load(Constant.ServicePicAddress + infoData.getValue()).placeholder(R.drawable.citystore).into(portraitView);
-            return view;
-        }
+//        if (position == 0) {
+//            view = LayoutInflater.from(getContext()).inflate(R.layout.activity_person_info_top, null);
+//            PersonInfoData infoData = getItem(position);
+//            ImageView portrait_view = (ImageView) view.findViewById(R.id.person_info_image_view);
+//            Glide.with(getContext()).load(Constant.ServicePicAddress + infoData.getValue()).placeholder(R.drawable.span).into(portrait_view);
+//            return view;
+//        }
 
         ViewHolder holder;
 
@@ -63,6 +60,7 @@ public class PersonInfoAdapter extends ArrayAdapter<PersonInfoData> {
     }
 
     static class ViewHolder {
+
         @Bind(R.id.person_info_item_key)
         TextView nameView;
 

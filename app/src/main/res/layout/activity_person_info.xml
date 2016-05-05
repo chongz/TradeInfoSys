@@ -18,39 +18,54 @@
         <include layout="@layout/tool_bar_common" />
     </android.support.design.widget.AppBarLayout>
 
-    <ListView
-        android:id="@+id/person_info_list_view"
+    <LinearLayout
+        android:id="@+id/person_info_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:layout_below="@id/tool_bar"></ListView>
-
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@id/tool_bar">
+        <ImageView
+            android:id="@+id/person_info_pic"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/portrait_view" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/person_info_action"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/person_info_ok_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:visibility="visible"
-            android:text="@string/ok" />
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/person_info_cancel_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:visibility="visible"
-            android:text="@string/cancel" />
+            android:text="@string/cancel"
+            android:background="@color/colorWhite" />
+
+        <Button
+            android:id="@+id/person_info_ok_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:visibility="visible"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorWhite"
+            android:text="@string/ok" />
     </LinearLayout>
 
-
+    <ListView
+        android:id="@+id/person_info_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="20dp"
+        android:layout_below="@id/person_info_layout"
+        android:layout_above="@id/person_info_action"></ListView>
 </RelativeLayout>

@@ -4,21 +4,31 @@
     android:layout_height="match_parent"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:background="#e6e6e6"
+    android:background="@color/colorWhite"
     android:gravity="top"
     android:fitsSystemWindows="true">
+
+    <ImageView
+        android:id="@+id/login_page_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_launcher"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="40dp"
+        android:padding="40dp"
+        />
 
     <TextView
         android:id="@+id/login_page_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:paddingTop="40dp"
-        android:paddingBottom="40dp"
         android:gravity="center"
         android:text="@string/app_name"
-        android:textSize="40sp"
-         />
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@+id/login_page_icon"
+        android:layout_marginBottom="20dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/login_page_user_name"
@@ -42,12 +52,15 @@
         android:layout_below="@id/login_page_user_name"
         android:hint="@string/login_page_promote_password"
         android:text=""
+        android:layout_marginBottom="20dp"
         />
     <Button
         android:id="@+id/login_page_login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/login_page_password"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorWhite"
         android:textAlignment="center"
         android:text="@string/login_page_sign_in"
         />

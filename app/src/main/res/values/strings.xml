@@ -1,7 +1,7 @@
 <resources>
 
     <!-- 通用-->
-    <string name="app_name">工委会员管理系统</string>
+    <string name="app_name">大连市直机关工会合作伙伴</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_login">登录</string>
@@ -36,7 +36,7 @@
     <!-- 登录页面 -->
     <string name="login_page_promote_user_name">用户名</string>
     <string name="login_page_promote_password">密码</string>
-    <string name="login_page_sign_in">登录</string>
+    <string name="login_page_sign_in">登  录</string>
 
     <string name="login_page_user_name_empty">用户名不能为空</string>
     <string name="login_page_user_name_invalid">用户名规则不合法</string>

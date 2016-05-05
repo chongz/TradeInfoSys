@@ -49,7 +49,7 @@ public class BulletinAdapter extends ArrayAdapter<Bulletin> {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        Glide.with(getContext()).load(Constant.ServicePicAddress + bulletin.getActivityPic()).placeholder(R.drawable.citystore).into(viewHolder.imageView);
+        Glide.with(getContext()).load(Constant.ServicePicAddress + bulletin.getActivityPic()).placeholder(R.drawable.span).into(viewHolder.imageView);
         viewHolder.textView.setText(bulletin.getActivityName());
         viewHolder.btn.setText("参加活动");
         viewHolder.btn.setFocusable(false);

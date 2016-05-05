@@ -10,5 +10,6 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="action_settings"
-        app:showAsAction="collapseActionView"/>
+        app:showAsAction="collapseActionView"
+        />
 </menu>

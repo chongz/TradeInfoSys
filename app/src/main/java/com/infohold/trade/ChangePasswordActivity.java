@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +22,7 @@ import com.infohold.trade.config.Constant;
 import com.infohold.trade.model.UserInfo;
 import com.infohold.trade.util.ResourceManager;
 import com.infohold.trade.util.Security;
+import com.infohold.trade.view.InputEditText;
 import com.umeng.analytics.MobclickAgent;
 
 import java.io.IOException;
@@ -46,17 +46,17 @@ public class ChangePasswordActivity extends BaseActivity {
 
     private static final String TAG = ChangePasswordActivity.class.getName();
 
-    @Bind(R.id.passwd_page_user_name_text_view)
+    @Bind(R.id.password_page_user_name_text_view)
     TextView userNameTextView;
     
-    @Bind(R.id.passwd_page_user_old_passwd_edit_text)
-    EditText oldPasswordEditText;
+    @Bind(R.id.password_page_user_old_password_edit_text)
+    InputEditText oldPasswordEditText;
 
-    @Bind(R.id.passwd_page_user_new_passwd_edit_text)
-    EditText newPasswordEditText;
+    @Bind(R.id.password_page_user_new_password_edit_text)
+    InputEditText newPasswordEditText;
     
-    @Bind(R.id.passwd_page_user_new_passwd_confirm_edit_view)
-    EditText confirmEditText;
+    @Bind(R.id.password_page_user_new_password_confirm_edit_view)
+    InputEditText confirmEditText;
 
     @Bind(R.id.passwd_page_user_button)
     Button saveButton;
@@ -112,7 +112,6 @@ public class ChangePasswordActivity extends BaseActivity {
         if (userInfo != null && userInfo.getStorename() != null) {
             userNameTextView.setText(userInfo.getStorename());
         }
-
     }
 
 
@@ -190,17 +189,17 @@ public class ChangePasswordActivity extends BaseActivity {
     }
 
 
-    @OnTextChanged(R.id.passwd_page_user_old_passwd_edit_text)
+    @OnTextChanged(R.id.password_page_user_old_password_edit_text)
     void onOldPasswordChanged() {
 
     }
 
-    @OnTextChanged(R.id.passwd_page_user_new_passwd_edit_text)
+    @OnTextChanged(R.id.password_page_user_new_password_edit_text)
     void onNewPasswordChanged() {
 
     }
 
-    @OnTextChanged(R.id.passwd_page_user_new_passwd_confirm_edit_view)
+    @OnTextChanged(R.id.password_page_user_new_password_confirm_edit_view)
     void onConfirmPasswordChanged() {
 
     }

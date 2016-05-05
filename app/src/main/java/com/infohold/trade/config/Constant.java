@@ -10,6 +10,7 @@ public class Constant {
     /**
      * 服务器地址
      */
+//    public static final String ServiceAddress = "http://192.168.0.198:80";
     public static final String ServiceAddress = "http://192.168.1.112:80";
 
     /**
@@ -78,6 +79,17 @@ public class Constant {
      * 扫描二维码前缀
      */
     public static final String SCAN_BAR_CODE_PREFIX = "memberCard=";
+
+    /**
+     * admin权限判断
+     */
+
+    public static final String ADMIN = "1";
+
+    /**
+     * 下拉刷新个数
+     */
+    public static final int PageSize = 10;
 }
 
 

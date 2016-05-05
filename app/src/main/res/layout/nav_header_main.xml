@@ -24,7 +24,8 @@
         android:gravity="left"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="Admin"
-         />
+        android:textColor="@color/colorWhite"
+        android:textSize="40sp" />
 
     <TextView
         android:id="@+id/nav_header_user_desc"
@@ -32,6 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:gravity="left"
-        android:text="管理员" />
+        android:text="管理员"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp" />
 
 </LinearLayout>

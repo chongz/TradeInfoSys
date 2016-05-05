@@ -23,7 +23,7 @@ public class BaseActivity extends AppCompatActivity {
             setTranslucentStatus(true);
             SystemBarTintManager tintManager = new SystemBarTintManager(this);
             tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.colorPrimary);//通知栏所需颜色
+            tintManager.setStatusBarTintResource(R.color.colorPrimary2);//通知栏所需颜色
         }
         setContentView(R.layout.activity_base);
     }
