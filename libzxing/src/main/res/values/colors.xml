@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by zhangchong on 5/5/2016.
+  ~ Copyright (c) 2016 com.infohold.TradeInfoSys. All rights reserved.
+  -->
+
+<resources>
+    <color name="colorPrimary2">#f1642a</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+
+    <color name="black_overlay">#66000000</color>
+
+</resources>
