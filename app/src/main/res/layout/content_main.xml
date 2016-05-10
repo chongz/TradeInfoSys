@@ -37,7 +37,9 @@
                 android:listSelector="@android:color/transparent"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:scrollbarStyle="outsideOverlay"></ListView>
+                android:scrollbarStyle="outsideOverlay">
+
+            </ListView>
         </in.srain.cube.views.loadmore.LoadMoreListViewContainer>
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 </RelativeLayout>

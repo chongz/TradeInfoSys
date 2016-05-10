@@ -8,6 +8,8 @@ package com.infohold.trade;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 public class ZCApplication extends Application {
 
     private static Context context;
@@ -16,6 +18,8 @@ public class ZCApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        Fresco.initialize(context);
+
     }
 
     public static Context getContext() {

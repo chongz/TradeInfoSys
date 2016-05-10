@@ -68,6 +68,11 @@ public class Constant {
      */
     public static final int REQUEST_CODE_ASK_PERMISSIONS_FROM_MAIN = 1;
     public static final int REQUEST_CODE_ASK_PERMISSIONS_FROM_ADAPTER = 2;
+    public static final int REQUEST_CODE_FROM_NEW_BULLETIN = 3;
+    public static final int REQUEST_CODE_FROM_NEW_BULLETIN_THUM_GRID_VIEW = 5;
+    public static final int REQUEST_CODE_ASK_PERMISSIONS_FROM_NEW_BULLETIN = 4;
+    public static final int REQUEST_CODE_PHOTO_VIEWER_THUM = 6;
+    public static final int REQUEST_CODE_PHOTO_VIEWER = 7;
 
     /**
      * Handler消息what
@@ -90,6 +95,11 @@ public class Constant {
      * 下拉刷新个数
      */
     public static final int PageSize = 10;
+
+    /**
+     * 增加活动最多图片数量
+     */
+    public static final int MAX_DISPLAY_PIC = 10;
 }
 
 

@@ -103,87 +103,87 @@ public class LoginActivity extends BaseActivity {
     void login() {
         if (attemptLogin()) {
 
-//            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-//            startActivity(intent);
-                String userName = userNameEditText.getText().toString();
-                String password = passwordTextEdit.getText().toString();
-
-                password = Security.getInstance().MD5Hash(password);
-                password = Security.getInstance().SHAHash(password);
-
-                Log.d(TAG, password);
-
-                OkHttpClient okHttpClient = new OkHttpClient();
-                RequestBody requestBody = new FormBody.Builder().add("userName", userName).add("password", password).build();
-
-                handler.sendEmptyMessage(0);
-
-                Request request = new Request.Builder().url(Constant.ServiceEndpoint + "login").post(requestBody).build();
-                Call call = okHttpClient.newCall(request);
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        Log.e(TAG, "Login failed result:" + e.getLocalizedMessage());
-                        handler.sendEmptyMessage(1);
-                        Message message = new Message();
-                        message.what = 2;
-                        message.obj = getString(R.string.lost_connection);
-                        handler.sendMessage(message);
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-
-                        String retJsonStr = response.body().string();
-                        Log.e(TAG, "Login success result:" + retJsonStr);
-
-                        try {
-                            HashMap<String, Object> resMap = JSON.parseObject(retJsonStr, HashMap.class);
-                            String repCode = (String) resMap.get(Constant.RepCode);
-                            String repMSG = (String) resMap.get(Constant.RepMSG);
-
-                            if (Constant.RepCodeSuccess.equals(repCode)) {
-
-                                JSONObject data = (JSONObject) resMap.get(Constant.RepData);
-                                UserInfo userInfo = JSON.parseObject(JSON.toJSONString(data), UserInfo.class);
-                                Log.d(TAG, userInfo.getStoreId());
-                                Log.d(TAG, userInfo.getStorename());
-                                Log.d(TAG, userInfo.getMemberGrade());
-
-                                SharedPreferences.Editor editor = getSharedPreferences(Constant.USER_INFO, MODE_PRIVATE).edit();
-                                editor.putString(Constant.USER_INFO_ID, userInfo.getStoreId());
-                                editor.putString(Constant.USER_INFO_NAME, userInfo.getStorename());
-                                editor.putString(Constant.USER_INFO_GRADE, userInfo.getMemberGrade());
-                                editor.commit();
-
-                                handler.sendEmptyMessage(1);
-
-                                Message message = new Message();
-                                message.what = 2;
-                                message.obj = repMSG;
-                                handler.sendMessage(message);
-
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                finish();
-
-                            } else {
-                                handler.sendEmptyMessage(1);
-                                Message message = new Message();
-                                message.what = 2;
-                                message.obj = repMSG;
-                                handler.sendMessage(message);
-                                Log.d(TAG, repMSG);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            handler.sendEmptyMessage(1);
-                            Message message = new Message();
-                            message.what = 2;
-                            message.obj = e.getLocalizedMessage();
-                            handler.sendMessage(message);
-                        }
-                    }
-                });
+            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+//            String userName = userNameEditText.getText().toString();
+//            String password = passwordTextEdit.getText().toString();
+//
+//            password = Security.getInstance().MD5Hash(password);
+//            password = Security.getInstance().SHAHash(password);
+//
+//            Log.d(TAG, password);
+//
+//            OkHttpClient okHttpClient = new OkHttpClient();
+//            RequestBody requestBody = new FormBody.Builder().add("userName", userName).add("password", password).build();
+//
+//            handler.sendEmptyMessage(0);
+//
+//            Request request = new Request.Builder().url(Constant.ServiceEndpoint + "login").post(requestBody).build();
+//            Call call = okHttpClient.newCall(request);
+//            call.enqueue(new Callback() {
+//                @Override
+//                public void onFailure(Call call, IOException e) {
+//                    Log.e(TAG, "Login failed result:" + e.getLocalizedMessage());
+//                    handler.sendEmptyMessage(1);
+//                    Message message = new Message();
+//                    message.what = 2;
+//                    message.obj = getString(R.string.lost_connection);
+//                    handler.sendMessage(message);
+//                }
+//
+//                @Override
+//                public void onResponse(Call call, Response response) throws IOException {
+//
+//                    String retJsonStr = response.body().string();
+//                    Log.e(TAG, "Login success result:" + retJsonStr);
+//
+//                    try {
+//                        HashMap<String, Object> resMap = JSON.parseObject(retJsonStr, HashMap.class);
+//                        String repCode = (String) resMap.get(Constant.RepCode);
+//                        String repMSG = (String) resMap.get(Constant.RepMSG);
+//
+//                        if (Constant.RepCodeSuccess.equals(repCode)) {
+//
+//                            JSONObject data = (JSONObject) resMap.get(Constant.RepData);
+//                            UserInfo userInfo = JSON.parseObject(JSON.toJSONString(data), UserInfo.class);
+//                            Log.d(TAG, userInfo.getStoreId());
+//                            Log.d(TAG, userInfo.getStorename());
+//                            Log.d(TAG, userInfo.getMemberGrade());
+//
+//                            SharedPreferences.Editor editor = getSharedPreferences(Constant.USER_INFO, MODE_PRIVATE).edit();
+//                            editor.putString(Constant.USER_INFO_ID, userInfo.getStoreId());
+//                            editor.putString(Constant.USER_INFO_NAME, userInfo.getStorename());
+//                            editor.putString(Constant.USER_INFO_GRADE, userInfo.getMemberGrade());
+//                            editor.commit();
+//
+//                            handler.sendEmptyMessage(1);
+//
+//                            Message message = new Message();
+//                            message.what = 2;
+//                            message.obj = repMSG;
+//                            handler.sendMessage(message);
+//
+//                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                            finish();
+//
+//                        } else {
+//                            handler.sendEmptyMessage(1);
+//                            Message message = new Message();
+//                            message.what = 2;
+//                            message.obj = repMSG;
+//                            handler.sendMessage(message);
+//                            Log.d(TAG, repMSG);
+//                        }
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                        handler.sendEmptyMessage(1);
+//                        Message message = new Message();
+//                        message.what = 2;
+//                        message.obj = e.getLocalizedMessage();
+//                        handler.sendMessage(message);
+//                    }
+//                }
+//            });
         }
     }
 

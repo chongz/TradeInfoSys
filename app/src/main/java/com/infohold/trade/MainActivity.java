@@ -32,6 +32,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -101,6 +102,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     break;
                 case 3:
                     ptrFrameLayout.refreshComplete();
+
                     //第一个参数是：数据是否为空；第二个参数是：是否还有更多数据
                     String has = (String) msg.obj;
                     if (Constant.HAS_CONTENT.equals(has)) {
@@ -217,7 +219,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        Log.d(TAG, "onCreate");
+        Log.d(TAG, "onCreate: ");
 
 
         View headerView = navigationView.getHeaderView(0);
@@ -600,6 +602,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //            }
 //
 //        }else
+        if (id == R.id.nav_add_bulletin) {
+            Intent intent = new Intent(MainActivity.this, NewBulletinActivity.class);
+            startActivity(intent);
+        }else
+
         if (id == R.id.nav_logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setIcon(R.drawable.icon);

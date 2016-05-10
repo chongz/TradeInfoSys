@@ -26,11 +26,15 @@
     <string name="action_bulletin_detail">活动详情</string>
     <string name="action_bulletin">活动</string>
     <string name="action_search_bulletin">活动搜索</string>
+    <string name="action_new_bulletin">创建活动</string>
+    <string name="action_back">返回</string>
 
     <!-- 功能-->
     <string name="function_main">主页</string>
     <string name="function_bulletin">活动</string>
     <string name="function_scan">扫描</string>
+    <string name="function_add_bulletin">创建活动</string>
+    <string name="function_add_bulletin_commit">创建</string>
     <string name="function_logout">退出</string>
 
     <!-- 登录页面 -->
@@ -59,4 +63,16 @@
     <!-- 扫描二维码解析结果验证页面-->
     <string name="person_barcode_page_title">会员详情</string>
     <string name="person_barcode_invalid_scan_info">不是有效的个人信息</string>
+
+    <!--创建活动页面-->
+    <string name="new_bulletin_title_empty">活动名称为空</string>
+    <string name="new_bulletin_pic_content_empty">选择活动内容图片</string>
+    <string name="new_bulletin_pic_content">活动内容图片</string>
+    <string name="new_bulletin_content_empty">活动内容为空</string>
+    <string name="new_bulletin_thumb_pic_empty">选择活动缩略图片</string>
+    <string name="new_bulletin_thumb_pic">选择活动缩略图片</string>
+    <string name="new_bulletin_start_date_empty">活动开始日期为空</string>
+    <string name="new_bulletin_end_date_empty">活动结束日期为空</string>
+    <string name="new_bulletin_end_date_before_start_date">活动结束日期在开始日期之前</string>
+
 </resources>
