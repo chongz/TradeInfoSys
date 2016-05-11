@@ -5,6 +5,7 @@
 
 package com.infohold.trade;
 
+import android.Manifest;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -12,12 +13,15 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -166,12 +170,29 @@ public class NewBulletinActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ImageItem imageItem = gridThumResults.get(position);
                 if (imageItem.getType() == 0) {
-                    takeThumPhotoSelectorAction();
+                    if (ContextCompat.checkSelfPermission(NewBulletinActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) !=
+                            PackageManager.PERMISSION_GRANTED
+                            || ContextCompat.checkSelfPermission(NewBulletinActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+
+                        ActivityCompat.requestPermissions(NewBulletinActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constant.REQUEST_CODE_ASK_PERMISSIONS_FROM_PHOTO_THUMB_SELECTOR);
+                    }else {
+                        takeThumbPhotoSelectorAction();
+                    }
+
                 }else{
-                    Log.d(TAG, "onItemClick: view...");
-                    Intent intent = new Intent(NewBulletinActivity.this,PhotoViewerActivity.class);
-                    intent.putStringArrayListExtra("data", gridThumData);
-                    startActivityForResult(intent,Constant.REQUEST_CODE_PHOTO_VIEWER_THUM);
+                    if (ContextCompat.checkSelfPermission(NewBulletinActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) !=
+                            PackageManager.PERMISSION_GRANTED
+                            || ContextCompat.checkSelfPermission(NewBulletinActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(NewBulletinActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constant.REQUEST_CODE_ASK_PERMISSIONS_FROM_PHOTO_THUMB);
+                    }else{
+                        Intent intent = new Intent(NewBulletinActivity.this,PhotoViewerActivity.class);
+                        intent.putStringArrayListExtra("data", gridThumData);
+                        startActivityForResult(intent,Constant.REQUEST_CODE_PHOTO_VIEWER_THUMB);
+                    }
                 }
             }
         });
@@ -185,12 +206,31 @@ public class NewBulletinActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ImageItem imageItem = gridResults.get(position);
                 if (imageItem.getType() == 0) {
-                    takePhotoSelectorAction();
+                    if (ContextCompat.checkSelfPermission(NewBulletinActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) !=
+                            PackageManager.PERMISSION_GRANTED
+                            || ContextCompat.checkSelfPermission(NewBulletinActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+
+                        ActivityCompat.requestPermissions(NewBulletinActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constant.REQUEST_CODE_ASK_PERMISSIONS_FROM_PHOTO_SELECTOR);
+                    }else {
+                        takePhotoSelectorAction();
+                    }
+
                 }else{
-                    Log.d(TAG, "onItemClick: view...");
-                    Intent intent = new Intent(NewBulletinActivity.this,PhotoViewerActivity.class);
-                    intent.putStringArrayListExtra("data", gridData);
-                    startActivityForResult(intent,Constant.REQUEST_CODE_PHOTO_VIEWER);
+                    if (ContextCompat.checkSelfPermission(NewBulletinActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) !=
+                            PackageManager.PERMISSION_GRANTED
+                            || ContextCompat.checkSelfPermission(NewBulletinActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+
+                        ActivityCompat.requestPermissions(NewBulletinActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constant.REQUEST_CODE_ASK_PERMISSIONS_FROM_PHOTO);
+                    }else{
+                        Intent intent = new Intent(NewBulletinActivity.this,PhotoViewerActivity.class);
+                        intent.putStringArrayListExtra("data", gridData);
+                        startActivityForResult(intent,Constant.REQUEST_CODE_PHOTO_VIEWER);
+                    }
+
                 }
             }
         });
@@ -359,18 +399,18 @@ public class NewBulletinActivity extends BaseActivity {
         });
     }
 
-    void takeThumPhotoSelectorAction() {
+    void takeThumbPhotoSelectorAction() {
         Intent intent = new Intent(NewBulletinActivity.this, ImagesSelectorActivity.class);
-        intent.putExtra(SelectorSettings.SELECTOR_MAX_IMAGE_NUMBER, 1);
+        intent.putExtra(SelectorSettings.SELECTOR_MAX_IMAGE_NUMBER, Constant.MAX_DISPLAY_PIC);
         intent.putExtra(SelectorSettings.SELECTOR_MIN_IMAGE_SIZE, 100000);
         intent.putExtra(SelectorSettings.SELECTOR_SHOW_CAMERA, true);
         intent.putStringArrayListExtra(SelectorSettings.SELECTOR_INITIAL_SELECTED_LIST, gridThumData);
-        startActivityForResult(intent,Constant.REQUEST_CODE_FROM_NEW_BULLETIN_THUM_GRID_VIEW);
+        startActivityForResult(intent,Constant.REQUEST_CODE_FROM_NEW_BULLETIN_THUMB_GRID_VIEW);
     }
 
     void takePhotoSelectorAction() {
         Intent intent = new Intent(NewBulletinActivity.this, ImagesSelectorActivity.class);
-        intent.putExtra(SelectorSettings.SELECTOR_MAX_IMAGE_NUMBER, 1);
+        intent.putExtra(SelectorSettings.SELECTOR_MAX_IMAGE_NUMBER, Constant.MAX_DISPLAY_PIC);
         intent.putExtra(SelectorSettings.SELECTOR_MIN_IMAGE_SIZE, 100000);
         intent.putExtra(SelectorSettings.SELECTOR_SHOW_CAMERA, true);
         intent.putStringArrayListExtra(SelectorSettings.SELECTOR_INITIAL_SELECTED_LIST, gridData);
@@ -415,28 +455,28 @@ public class NewBulletinActivity extends BaseActivity {
                 gridResults.add(getDefaultImageItem());
                 gridAdapter.notifyDataSetChanged();
             }
-        }else if (requestCode == Constant.REQUEST_CODE_FROM_NEW_BULLETIN_THUM_GRID_VIEW) {
+        }else if (requestCode == Constant.REQUEST_CODE_FROM_NEW_BULLETIN_THUMB_GRID_VIEW) {
             if(resultCode == RESULT_OK) {
                 gridThumData = data.getStringArrayListExtra(SelectorSettings.SELECTOR_RESULTS);
                 assert gridThumData != null;
 
                 gridThumResults.clear();
                 for(String result : gridThumData) {
-                    gridThumResults.add(new ImageItem(result,false,1));
+                    gridThumResults.add(new ImageItem(getPicPath(result),false,1));
                 }
 
                 removeThumPlus();
                 gridThumResults.add(getDefaultImageItem());
                 gridThumAdapter.notifyDataSetChanged();
             }
-        }else if(requestCode == Constant.REQUEST_CODE_PHOTO_VIEWER_THUM) {
+        }else if(requestCode == Constant.REQUEST_CODE_PHOTO_VIEWER_THUMB) {
             if(resultCode == RESULT_OK) {
                 ArrayList<String> ret = data.getStringArrayListExtra("data");
                 gridThumResults.clear();
                 gridThumData.clear();
                 gridThumData.addAll(ret);
                 for(String result : gridThumData) {
-                    gridThumResults.add(new ImageItem(result,false,1));
+                    gridThumResults.add(new ImageItem(getPicPath(result),false,1));
                 }
 
                 removeThumPlus();
@@ -464,6 +504,13 @@ public class NewBulletinActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+
+    String getPicPath(String virtualPath) {
+        String path = virtualPath;
+//        path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + File.pathSeparator + virtualPath;
+        return path;
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -480,20 +527,41 @@ public class NewBulletinActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == Constant.REQUEST_CODE_ASK_PERMISSIONS_FROM_NEW_BULLETIN) {
+        if (requestCode == Constant.REQUEST_CODE_ASK_PERMISSIONS_FROM_PHOTO) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                Intent intent = new Intent(NewBulletinActivity.this, CaptureActivity.class);
-//                startActivityForResult(intent, 0);
+                Intent intent = new Intent(NewBulletinActivity.this,PhotoViewerActivity.class);
+                intent.putStringArrayListExtra("data", gridData);
+                startActivityForResult(intent,Constant.REQUEST_CODE_PHOTO_VIEWER);
             }else{
-                openCameraPermissionSetting();
+                openReadWriteStoragePermissionSetting();
+            }
+        }else if (requestCode == Constant.REQUEST_CODE_ASK_PERMISSIONS_FROM_PHOTO_THUMB) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(NewBulletinActivity.this,PhotoViewerActivity.class);
+                intent.putStringArrayListExtra("data", gridThumData);
+                startActivityForResult(intent,Constant.REQUEST_CODE_PHOTO_VIEWER_THUMB);
+            }else{
+                openReadWriteStoragePermissionSetting();
+            }
+        }else if (requestCode == Constant.REQUEST_CODE_ASK_PERMISSIONS_FROM_PHOTO_SELECTOR) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                takePhotoSelectorAction();
+            }else{
+                openReadWriteStoragePermissionSetting();
+            }
+        }else if (requestCode == Constant.REQUEST_CODE_ASK_PERMISSIONS_FROM_PHOTO_THUMB_SELECTOR) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                takeThumbPhotoSelectorAction();
+            }else{
+                openReadWriteStoragePermissionSetting();
             }
         }
     }
 
-    void openCameraPermissionSetting() {
+    void openReadWriteStoragePermissionSetting() {
         new SweetAlertDialog(NewBulletinActivity.this,SweetAlertDialog.WARNING_TYPE)
-                .setTitleText(getString(R.string.open_camera_permission_title))
-                .setContentText(getString(R.string.open_camera_permission_message))
+                .setTitleText(getString(R.string.open_read_write_storage_permission_title))
+                .setContentText(getString(R.string.open_read_write_storage_permission_message))
                 .setConfirmText(getString(R.string.open_camera_permission_ok))
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
@@ -570,7 +638,11 @@ public class NewBulletinActivity extends BaseActivity {
                     viewHolder.imageView.setVisibility(View.GONE);
                 }
             }else{
-                viewHolder.imageView.setImageBitmap(imageItem.getBitmap());
+                Bitmap d = new BitmapDrawable(getResources() , imageItem.getImagePath()).getBitmap();
+                int nh = (int) ( d.getHeight() * (512.0 / d.getWidth()) );
+                Bitmap scaled = Bitmap.createScaledBitmap(d, 512, nh, true);
+                viewHolder.imageView.setImageBitmap(scaled);
+//                viewHolder.imageView.setImageBitmap(imageItem.getBitmap());
             }
 
             return convertView;

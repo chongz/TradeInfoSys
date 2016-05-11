@@ -8,6 +8,7 @@ package com.infohold.trade;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -61,8 +62,14 @@ public class PhotoViewerActivity extends BaseActivity {
 
         data = getIntent().getStringArrayListExtra("data");
         index = 0;
-        Bitmap bitmap = BitmapFactory.decodeFile(data.get(index));
-        imageView.setImageBitmap(bitmap);
+
+        Bitmap d = new BitmapDrawable(getResources() , data.get(index)).getBitmap();
+        int nh = (int) ( d.getHeight() * (512.0 / d.getWidth()) );
+        Bitmap scaled = Bitmap.createScaledBitmap(d, 512, nh, true);
+
+//        Bitmap bitmap = BitmapFactory.decodeFile(data.get(index));
+//        imageView.setImageBitmap(bitmap);
+        imageView.setImageBitmap(scaled);
         photoViewAttacher = new PhotoViewAttacher(imageView);
     }
 

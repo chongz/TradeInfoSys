@@ -69,10 +69,14 @@ public class Constant {
     public static final int REQUEST_CODE_ASK_PERMISSIONS_FROM_MAIN = 1;
     public static final int REQUEST_CODE_ASK_PERMISSIONS_FROM_ADAPTER = 2;
     public static final int REQUEST_CODE_FROM_NEW_BULLETIN = 3;
-    public static final int REQUEST_CODE_FROM_NEW_BULLETIN_THUM_GRID_VIEW = 5;
+    public static final int REQUEST_CODE_FROM_NEW_BULLETIN_THUMB_GRID_VIEW = 5;
     public static final int REQUEST_CODE_ASK_PERMISSIONS_FROM_NEW_BULLETIN = 4;
-    public static final int REQUEST_CODE_PHOTO_VIEWER_THUM = 6;
+    public static final int REQUEST_CODE_PHOTO_VIEWER_THUMB = 6;
     public static final int REQUEST_CODE_PHOTO_VIEWER = 7;
+    public static final int REQUEST_CODE_ASK_PERMISSIONS_FROM_PHOTO_THUMB = 8;
+    public static final int REQUEST_CODE_ASK_PERMISSIONS_FROM_PHOTO = 9;
+    public static final int REQUEST_CODE_ASK_PERMISSIONS_FROM_PHOTO_SELECTOR = 10;
+    public static final int REQUEST_CODE_ASK_PERMISSIONS_FROM_PHOTO_THUMB_SELECTOR = 11;
 
     /**
      * Handler消息what
@@ -99,7 +103,7 @@ public class Constant {
     /**
      * 增加活动最多图片数量
      */
-    public static final int MAX_DISPLAY_PIC = 10;
+    public static final int MAX_DISPLAY_PIC = 1;
 }
 
 
