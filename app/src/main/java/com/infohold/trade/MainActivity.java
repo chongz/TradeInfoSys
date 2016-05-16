@@ -288,10 +288,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         }
 
                         JSONObject repData = (JSONObject) resMap.get(Constant.RepData);
+
                         String totalNum = repData.getString("totalNum");
                         JSONArray list = repData.getJSONArray("list");
 
-                        if (list == null) {
+                        if (list == null || list.getClass() != JSONArray.class) {
                             handler.sendEmptyMessage(1);
 
                             Message message = new Message();

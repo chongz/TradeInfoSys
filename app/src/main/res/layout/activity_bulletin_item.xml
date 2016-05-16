@@ -34,6 +34,18 @@
             android:gravity="left|center_vertical"
             android:id="@+id/bulletin_item_textView" />
 
+        <TextView
+            android:id="@+id/bulletin_item_detail_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:textSize="12sp"
+            android:textColor="@color/colorBlack"
+            android:text="\t详细内容,活动的详细内容包括很多内容，详细内容分段落显示。"
+            android:gravity="left|center_vertical"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/bulletin_item_textView"/>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -13,6 +13,7 @@ public class Bulletin implements Parcelable {
     private String activityId;
     private String activityName;
     private String activityPic;
+    private String contText;
     private String Dtime;
 
     public Bulletin() {
@@ -22,6 +23,7 @@ public class Bulletin implements Parcelable {
         activityId = in.readString();
         activityName = in.readString();
         activityPic = in.readString();
+        contText = in.readString();
         Dtime = in.readString();
     }
 
@@ -48,6 +50,7 @@ public class Bulletin implements Parcelable {
         dest.writeString(activityName);
         dest.writeString(activityPic);
         dest.writeString(Dtime);
+        dest.writeString(contText);
     }
 
     public String getActivityId() {
@@ -80,6 +83,14 @@ public class Bulletin implements Parcelable {
 
     public void setDtime(String dtime) {
         Dtime = dtime;
+    }
+
+    public String getContText() {
+        return contText;
+    }
+
+    public void setContText(String contText) {
+        this.contText = contText;
     }
 }
 

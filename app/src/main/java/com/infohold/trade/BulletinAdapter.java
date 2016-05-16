@@ -81,6 +81,9 @@ public class BulletinAdapter extends ArrayAdapter<Bulletin> {
         @Bind(R.id.bulletin_item_textView)
         TextView textView;
 
+        @Bind(R.id.bulletin_item_detail_text_view)
+        TextView detailTextView;
+
         @Bind(R.id.bulletin_item_button)
         Button btn;
 

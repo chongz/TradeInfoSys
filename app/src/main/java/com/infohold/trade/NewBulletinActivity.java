@@ -24,6 +24,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,8 @@ import com.zfdang.multiple_images_selector.ImagesSelectorActivity;
 import com.zfdang.multiple_images_selector.SelectorSettings;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -63,7 +66,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -293,7 +295,6 @@ public class NewBulletinActivity extends BaseActivity {
         Log.d(TAG, "checkPublish: activityStartDate:" + activityStartDate);
         Log.d(TAG, "checkPublish: activityEndDate:" + activityEndDate);
 
-
         if (activityEndDate.before(activityStartDate)) {
             Toast.makeText(NewBulletinActivity.this, getString(R.string.new_bulletin_end_date_before_start_date), Toast.LENGTH_SHORT).show();
             return false;
@@ -305,6 +306,58 @@ public class NewBulletinActivity extends BaseActivity {
         }
 
         return true;
+    }
+
+    String getActivityPic() {
+        String retContent = "";
+        if (gridThumData.size() > 0) {
+            String filePath = gridThumData.get(0);
+            File uploadFile = new File(filePath);
+            if (uploadFile.exists()) {
+
+                try {
+                    FileInputStream fis = new FileInputStream(uploadFile);
+                    byte[] content = new byte[fis.available()];
+                    fis.read(content);
+                    fis.close();
+                    retContent = Base64.encodeToString(content,Base64.DEFAULT);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    return "";
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return "";
+                }
+            }
+        }
+
+        return retContent;
+    }
+
+    String getActivityContentPic() {
+        String retContent = "";
+        if (gridData.size() > 0) {
+            String filePath = gridData.get(0);
+            File uploadFile = new File(filePath);
+            if (uploadFile.exists()) {
+
+                try {
+                    FileInputStream fis = new FileInputStream(uploadFile);
+                    byte[] content = new byte[fis.available()];
+                    fis.read(content);
+                    fis.close();
+                    retContent = Base64.encodeToString(content,Base64.DEFAULT);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    return "";
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return "";
+                }
+            }
+        }
+
+        return retContent;
     }
 
     @OnClick(R.id.create_new_bulletin_btn)
@@ -320,25 +373,42 @@ public class NewBulletinActivity extends BaseActivity {
         OkHttpClient okHttpClient = new OkHttpClient();
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.setType(MultipartBody.FORM);
-        builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"activityName\""),RequestBody.create(null, title.getText().toString()));
-        builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"storeId\""),RequestBody.create(null, userInfo.getStoreId()));
-        builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"contText\""),RequestBody.create(null, textContent.getText().toString()));
-        builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"activityStartDate\""),RequestBody.create(null, startDateString));
-        builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"activityEndDate\""),RequestBody.create(null, endDateString));
-        builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"applyStatus\""),RequestBody.create(null, "0"));
 
-        for (int i=0; i< gridData.size(); i++) {
-            String path = gridData.get(i);
-            File file = new File(path);
-            RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), file);
-            builder.addPart(Headers.of("Content-Disposition","form-data; name=\"activityPic\";filename=\"activityPic.png\""), fileBody);
+        if (!TextUtils.isEmpty(title.getText())) {
+            builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"activityName\""),RequestBody.create(null, title.getText().toString()));
         }
 
-        for (int i=0; i< gridThumData.size(); i++) {
-            String path = gridThumData.get(i);
-            File file = new File(path);
-            RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), file);
-            builder.addPart(Headers.of("Content-Disposition","form-data; name=\"contPic\";filename=\"contPic.png\""), fileBody);
+        builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"storeId\""),RequestBody.create(null, userInfo.getStoreId()));
+
+        if (!TextUtils.isEmpty(textContent.getText())) {
+            builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"contText\""), RequestBody.create(null, textContent.getText().toString()));
+        }
+
+        if (!TextUtils.isEmpty(startDateString) && !TextUtils.isEmpty(endDateString)) {
+            builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"activityStartDate\""),RequestBody.create(null, startDateString));
+            builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"activityEndDate\""),RequestBody.create(null, endDateString));
+        }
+
+        builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"applyStatus\""),RequestBody.create(null, "0"));
+
+//        for (int i=0; i< gridThumData.size(); i++) {
+//            String path = gridThumData.get(i);
+//            File file = new File(path);
+//            builder.addFormDataPart("activityPic",file.getName(),RequestBody.create(MediaType.parse("image/jpeg"),file));
+//        }
+//
+//        for (int i=0; i< gridData.size(); i++) {
+//            String path = gridData.get(i);
+//            File file = new File(path);
+//            builder.addFormDataPart("contPic",file.getName(),RequestBody.create(MediaType.parse("image/jpeg"),file));
+//        }
+
+        if (gridThumData.size() > 0) {
+            builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"activityPic\""),RequestBody.create(null, getActivityPic()));
+        }
+
+        if (gridData.size() > 0) {
+            builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"contPic\""),RequestBody.create(null, getActivityContentPic()));
         }
 
 
@@ -350,52 +420,59 @@ public class NewBulletinActivity extends BaseActivity {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.d(TAG, "onFailure: " + e.getLocalizedMessage());
-                    handler.sendEmptyMessage(1);
+                handler.sendEmptyMessage(1);
 
-                    Message message = new Message();
-                    message.what = 2;
-                    message.obj = getString(R.string.lost_connection);
-                    handler.sendMessage(message);
+                Message message = new Message();
+                message.what = 2;
+                message.obj = e.getLocalizedMessage();
+                handler.sendMessage(message);
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.d(TAG, "onResponse: " + response.body().string());
 
-                String retJsonStr = response.body().string();
-                try {
-                    HashMap<String, Object> resMap = JSON.parseObject(retJsonStr, HashMap.class);
-                    String repCode = (String) resMap.get(Constant.RepCode);
-                    String repMSG = (String) resMap.get(Constant.RepMSG);
+                if (response.isSuccessful()) {
 
-                    if (Constant.RepCodeSuccess.equals(repCode)) {
+                    try {
 
+                        String retJsonStr = response.body().string();
+                        Log.d(TAG, "onResponse: " + retJsonStr);
+                        HashMap<String, Object> resMap = JSON.parseObject(retJsonStr, HashMap.class);
+                        String repCode = (String) resMap.get(Constant.RepCode);
+                        String repMSG = (String) resMap.get(Constant.RepMSG);
+
+                        if (Constant.RepCodeSuccess.equals(repCode)) {
+
+                            handler.sendEmptyMessage(1);
+
+                            Message message = new Message();
+                            message.what = 2;
+                            message.obj = repMSG;
+                            handler.sendMessage(message);
+
+                            finish();
+
+                        } else {
+                            handler.sendEmptyMessage(1);
+                            Message message = new Message();
+                            message.what = 2;
+                            message.obj = repMSG;
+                            handler.sendMessage(message);
+                            Log.d(TAG, repMSG);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                         handler.sendEmptyMessage(1);
-
                         Message message = new Message();
                         message.what = 2;
-                        message.obj = repMSG;
+                        message.obj = e.getLocalizedMessage();
                         handler.sendMessage(message);
-
-                        finish();
-
-                    } else {
-                        handler.sendEmptyMessage(1);
-                        Message message = new Message();
-                        message.what = 2;
-                        message.obj = repMSG;
-                        handler.sendMessage(message);
-                        Log.d(TAG, repMSG);
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    handler.sendEmptyMessage(1);
-                    Message message = new Message();
-                    message.what = 2;
-                    message.obj = e.getLocalizedMessage();
-                    handler.sendMessage(message);
+                }else{
+                    Log.d(TAG, "onResponse: failed.");
                 }
             }
+
         });
     }
 
@@ -417,7 +494,7 @@ public class NewBulletinActivity extends BaseActivity {
         startActivityForResult(intent,Constant.REQUEST_CODE_FROM_NEW_BULLETIN);
     }
 
-    void removeThumPlus() {
+    void removeThumbPlus() {
         for (ImageItem imageItem : gridThumResults) {
             if (imageItem.getType() == 0) {
                 gridThumResults.remove(imageItem);
@@ -465,7 +542,7 @@ public class NewBulletinActivity extends BaseActivity {
                     gridThumResults.add(new ImageItem(getPicPath(result),false,1));
                 }
 
-                removeThumPlus();
+                removeThumbPlus();
                 gridThumResults.add(getDefaultImageItem());
                 gridThumAdapter.notifyDataSetChanged();
             }
@@ -479,7 +556,7 @@ public class NewBulletinActivity extends BaseActivity {
                     gridThumResults.add(new ImageItem(getPicPath(result),false,1));
                 }
 
-                removeThumPlus();
+                removeThumbPlus();
                 gridThumResults.add(getDefaultImageItem());
 
                 gridThumAdapter.notifyDataSetChanged();
